@@ -1,2 +1,2 @@
-from .user_serializer import UserProfileSerializer
-from .team_serializer import TeamSerializer
+from .user_serializer import UserProfileReadSerializer, UserProfileWriteSerializer
+from .team_serializer import TeamReadSerializer, TeamWriteSerializer

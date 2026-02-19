@@ -4,7 +4,7 @@ from .models import Team, UserProfile
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('displayName', 'get_email', 'isAdmin', 'createdAt')
+    list_display = ('display_name', 'get_email', 'is_admin', 'created_at')
 
     @admin.display(description='Email')
     def get_email(self, obj):
@@ -12,5 +12,5 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ('name', 'createdAt', 'updatedAt')
+    list_display = ('name', 'created_at', 'updated_at')
     filter_horizontal = ('users',)

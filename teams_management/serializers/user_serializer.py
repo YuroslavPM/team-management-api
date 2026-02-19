@@ -7,13 +7,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
     lastName = serializers.CharField(write_only = True)
     email = serializers.EmailField(write_only = True)
     secret = serializers.CharField(write_only= False)
-    displayName = serializers.CharField(required = False)
+    display_name = serializers.CharField(required = False)
 
     class Meta:
         model = UserProfile
         fields = [
-            'id', 'displayName', 'email', 'firstName', 
-            'lastName', 'secret', 'createdAt', 'updatedAt', 'isAdmin'
+            'id', 'display_name', 'email', 'first_name', 
+            'last_name', 'secret', 'created_at', 'updated_at', 'is_admin'
         ]
 
     def create(self, validated_data):
@@ -22,7 +22,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         first_name = validated_data.pop('firstName')
         last_name = validated_data.pop('lastName')
 
-        display_name = validated_data.pop('displayName', f"{first_name} {last_name}".strip())
+        display_name = validated_data.pop('display_name', f"{first_name} {last_name}".strip())
 
         user = User.objects.create_user(
             username=email,
@@ -35,7 +35,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         profile = UserProfile.objects.create(
             user= user,
             secret = password,
-            displayName = display_name,
+            display_name = display_name,
             **validated_data
         )
         return profile
@@ -49,10 +49,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
             user.username = user.email
 
         if 'fistName' in validated_data:
-            user.first_name = validated_data.pop('firstName')
+            user.first_name = validated_data.pop('first_name')
         
         if 'lastName' in validated_data:
-            user.last_name = validated_data.pop('lastName')
+            user.last_name = validated_data.pop('last_name')
 
         if 'secret' in validated_data:
             password = validated_data.pop('secret')
@@ -66,8 +66,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['firstName'] = instance.user.first_name
-        representation['lastName'] = instance.user.last_name
+        representation['first_name'] = instance.user.first_name
+        representation['last_name'] = instance.user.last_name
         representation['email'] = instance.user.email
 
         return representation

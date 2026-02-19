@@ -1,9 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import TeamViewSet, UserProfileViewSet
+
+from teams_management.views.user_view import UserProfileViewSet
 
 router = DefaultRouter()
-router.register(r'teams', TeamViewSet)
 router.register(r'users', UserProfileViewSet)
 
 urlpatterns = [

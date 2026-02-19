@@ -48,10 +48,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
             user.email = validated_data.pop('email')
             user.username = user.email
 
-        if 'fistName' in validated_data:
+        if 'fist_name' in validated_data:
             user.first_name = validated_data.pop('first_name')
         
-        if 'lastName' in validated_data:
+        if 'last_name' in validated_data:
             user.last_name = validated_data.pop('last_name')
 
         if 'secret' in validated_data:

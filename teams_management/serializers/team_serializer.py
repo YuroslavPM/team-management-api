@@ -1,14 +1,19 @@
 from rest_framework import serializers
 from teams_management.models.team import Team
 from teams_management.models.user_profile import UserProfile
+from teams_management.serializers.user_serializer import UserProfileSerializer
 
-# GetAll Teams
-class TeamSerializer(serializers.ModelSerializer):
+class TeamReadSerializer(serializers.ModelSerializer):
+    users = UserProfileSerializer(many= True, read_only=True)
+    class Meta: 
+        model = Team
+        fields = ["id", "name", "users", "created_at", "updated_at"]
+
+class TeamWriteSerializer(serializers.ModelSerializer):
     users = serializers.PrimaryKeyRelatedField(
-            many=True,
-            queryset = UserProfile.objects.all()
-          )
-    
+        many= True,
+        queryset= UserProfile.objects.all()
+    )
     class Meta: 
         model = Team
         fields = ["id", "name", "users", "created_at", "updated_at"]

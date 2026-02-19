@@ -2,12 +2,23 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from teams_management.models.user_profile import UserProfile
 
-class UserProfileSerializer(serializers.ModelSerializer):
+
+class UserProfileReadSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(write_only = True)
     last_name = serializers.CharField(write_only = True)
     email = serializers.EmailField(write_only = True)
-    secret = serializers.CharField(write_only= False)
-    display_name = serializers.CharField(required = False)
+    class Meta:
+        model = UserProfile
+        fields = [
+            'id', 'display_name', 'email', 'first_name', 
+            'last_name', 'secret', 'created_at', 'updated_at', 'is_admin'
+        ]
+
+
+class UserProfileWriteSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(write_only = True)
+    last_name = serializers.CharField(write_only = True)
+    email = serializers.EmailField(write_only = True)
 
     class Meta:
         model = UserProfile
@@ -32,13 +43,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
             last_name = last_name
         )
 
-        profile = UserProfile.objects.create(
+        return UserProfile.objects.create(
             user= user,
             secret = password,
             display_name = display_name,
             **validated_data
         )
-        return profile
     
 
     def update(self, instance, validated_data):
@@ -62,12 +72,3 @@ class UserProfileSerializer(serializers.ModelSerializer):
         user.save()
 
         return super().update(instance, validated_data)
-    
-
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        representation['first_name'] = instance.user.first_name
-        representation['last_name'] = instance.user.last_name
-        representation['email'] = instance.user.email
-
-        return representation

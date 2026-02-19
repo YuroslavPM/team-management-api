@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from teams_management.models.user_profile import UserProfile
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    firstName = serializers.CharField(write_only = True)
-    lastName = serializers.CharField(write_only = True)
+    first_name = serializers.CharField(write_only = True)
+    last_name = serializers.CharField(write_only = True)
     email = serializers.EmailField(write_only = True)
     secret = serializers.CharField(write_only= False)
     display_name = serializers.CharField(required = False)
@@ -19,8 +19,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         email = validated_data.pop('email')
         password = validated_data.pop('secret')
-        first_name = validated_data.pop('firstName')
-        last_name = validated_data.pop('lastName')
+        first_name = validated_data.pop('first_name')
+        last_name = validated_data.pop('last_name')
 
         display_name = validated_data.pop('display_name', f"{first_name} {last_name}".strip())
 

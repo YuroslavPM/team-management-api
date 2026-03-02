@@ -1,2 +1,3 @@
 from .user_serializer import UserProfileReadSerializer, UserProfileWriteSerializer
 from .team_serializer import TeamReadSerializer, TeamWriteSerializer
+from .project_serializer import ProjectReadSerializer, ProjectWriteSerializer

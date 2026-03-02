@@ -6,7 +6,7 @@ from teams_management.serializers.user_serializer import UserProfileReadSerializ
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
-    def get_serializer(self):
+    def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT', 'PATCH']:
             return UserProfileWriteSerializer
         

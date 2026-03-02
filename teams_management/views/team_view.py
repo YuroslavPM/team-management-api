@@ -4,7 +4,7 @@ from teams_management.serializers.team_serializer import TeamReadSerializer, Tea
 
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
-    def get_serializer(self):
+    def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT', 'PATCH']:
             return TeamWriteSerializer
         

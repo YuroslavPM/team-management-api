@@ -10,4 +10,4 @@ class UserProfile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.displayName
+        return self.display_name

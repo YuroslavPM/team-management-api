@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Team, UserProfile
+
+from .models import Team, UserProfile, Project
 # Register your models here.
 
 @admin.register(UserProfile)
@@ -14,3 +15,8 @@ class UserProfileAdmin(admin.ModelAdmin):
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at', 'updated_at')
     filter_horizontal = ('users',)
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('name', 'created_at', 'updated_at')
+    filter_horizontal = ('adminIds', 'memberIds', 'teamIds')

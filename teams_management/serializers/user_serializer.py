@@ -1,3 +1,5 @@
+import email
+
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from teams_management.models.user_profile import UserProfile
@@ -22,7 +24,8 @@ class UserProfileWriteSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(write_only=True)
     last_name = serializers.CharField(write_only=True)
     email = serializers.EmailField(write_only=True)
-    secret = serializers.CharField(write_only=True)  
+    secret = serializers.CharField(write_only=True) 
+    display_name = serializers.CharField(required=False) 
 
     class Meta:
         model = UserProfile
@@ -39,6 +42,10 @@ class UserProfileWriteSerializer(serializers.ModelSerializer):
         last_name = validated_data.pop('last_name')
         display_name = validated_data.pop('display_name', f"{first_name} {last_name}".strip())
 
+        if User.objects.filter(username=email).exists():
+            raise serializers.ValidationError({"email": "A user with this email already exists."})
+
+    
         user = User.objects.create_user(
             username=email,
             email=email,

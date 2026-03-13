@@ -6,4 +6,5 @@ user_urlpatterns = [
     path('users/<int:pk>/', UserProfileViewSet.as_view({
         'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'
     })),
+    path('me/', UserProfileViewSet.as_view({'get': 'me'}), name='user-me'),
 ]

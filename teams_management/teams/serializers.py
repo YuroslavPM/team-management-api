@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from teams_management.models.team import Team
-from teams_management.models.user_profile import UserProfile
-from teams_management.serializers.user_serializer import UserProfileReadSerializer
+
+from teams_management.teams.models import Team
+from teams_management.user_profiles.models import UserProfile
+from teams_management.user_profiles.serializers import UserProfileReadSerializer
 
 class TeamReadSerializer(serializers.ModelSerializer):
     users = UserProfileReadSerializer(many= True, read_only=True)

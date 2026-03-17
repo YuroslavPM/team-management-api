@@ -1,6 +1,8 @@
 from rest_framework import viewsets
-from teams_management.models.project import Project
-from teams_management.serializers.project_serializer import ProjectReadSerializer, ProjectWriteSerializer
+
+from teams_management.projects.models import Project
+from teams_management.projects.serializers import ProjectReadSerializer, ProjectWriteSerializer
+
 
 class ProjectViewSet(viewsets.ModelViewSet):
 

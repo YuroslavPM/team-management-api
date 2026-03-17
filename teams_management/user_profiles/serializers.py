@@ -2,7 +2,7 @@ import email
 
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from teams_management.models.user_profile import UserProfile
+from teams_management.user_profiles.models import UserProfile
 
 
 class UserProfileReadSerializer(serializers.ModelSerializer):

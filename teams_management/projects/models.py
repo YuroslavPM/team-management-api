@@ -1,5 +1,6 @@
 from django.db import models
-from .user_profile import UserProfile
+
+from teams_management.user_profiles.models import UserProfile
 
 class Project(models.Model):
     name = models.CharField(max_length=100, unique=True)

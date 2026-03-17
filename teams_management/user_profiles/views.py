@@ -4,9 +4,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.authentication import TokenAuthentication  
 from rest_framework.permissions import IsAuthenticated
-from teams_management.models.user_profile import UserProfile
-from teams_management.serializers.user_serializer import UserProfileReadSerializer, UserProfileWriteSerializer
-
+from teams_management.user_profiles.models import UserProfile
+from teams_management.user_profiles.serializers import UserProfileReadSerializer, UserProfileWriteSerializer
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
@@ -18,7 +17,12 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         
         return UserProfileReadSerializer
     
-    @action(detail=False, methods=['get'],url_path='me')
+    @action(detail=False, methods=["get"])
     def me(self, request):
-        serializer = UserProfileReadSerializer(request.user.profile)
+        profile = getattr(request.user, "profile", None)
+
+        if not profile:
+            return Response({"detail": "Profile not found"}, status=404)
+
+        serializer = self.get_serializer(profile)
         return Response(serializer.data)

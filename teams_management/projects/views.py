@@ -8,9 +8,9 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Project.objects.prefetch_related(
-            'adminIds', 
-            'memberIds', 
-            'teamIds'
+            'admins', 
+            'members', 
+            'teams'
         ).all()
 
     def get_serializer_class(self):

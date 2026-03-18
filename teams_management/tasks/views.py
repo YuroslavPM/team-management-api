@@ -8,7 +8,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Task.objects.prefetch_related(
             'project',
-            'assignedUser'
+            'assigned_user'
         ).all()
     
     def get_serializer_class(self):

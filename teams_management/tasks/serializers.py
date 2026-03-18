@@ -9,7 +9,7 @@ class TaskReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = [
-            "id", "title", "status", "priority",
+            "id", "title", "description", "status", "priority",
             "project", "assigned_user", "created_at", "updated_at"
         ]
 
@@ -17,11 +17,10 @@ class TaskReadSerializer(serializers.ModelSerializer):
 class TaskWriteSerializer(serializers.ModelSerializer):
 
     project = serializers.PrimaryKeyRelatedField(
-        many=True,
         queryset = Project.objects.all(),
     )
 
-    assignedUser = serializers.PrimaryKeyRelatedField(
+    assigned_user = serializers.PrimaryKeyRelatedField(
         many= True,
         queryset= UserProfile.objects.all()
     )
@@ -29,7 +28,7 @@ class TaskWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = [
-            "id", "title", "status", "priority",
+            "id", "title", "description", "status", "priority",
             "project", "assigned_user", "created_at", "updated_at"
         ]
         read_only_fields = ["created_at", "updated_at"]

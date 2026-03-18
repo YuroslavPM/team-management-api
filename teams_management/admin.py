@@ -24,3 +24,4 @@ class ProjectAdmin(admin.ModelAdmin):
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     list_display= ('title', 'created_at', 'updated_at')
+    filter_horizontal = ('assigned_user',)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Team, UserProfile, Project
+from .models import Team, UserProfile, Project, Task
 # Register your models here.
 
 @admin.register(UserProfile)
@@ -20,3 +20,7 @@ class TeamAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at', 'updated_at')
     filter_horizontal = ('admins', 'members', 'teams')
+
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display= ('title', 'created_at', 'updated_at')

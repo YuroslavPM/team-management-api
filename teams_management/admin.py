@@ -19,4 +19,4 @@ class TeamAdmin(admin.ModelAdmin):
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at', 'updated_at')
-    filter_horizontal = ('adminIds', 'memberIds', 'teamIds')
+    filter_horizontal = ('admins', 'members', 'teams')

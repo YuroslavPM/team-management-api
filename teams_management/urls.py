@@ -6,7 +6,7 @@ from teams_management.projects.views import ProjectViewSet
 from teams_management.teams.views import TeamViewSet
 from teams_management.user_profiles.views import UserProfileViewSet
 
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 router.register(r"users", UserProfileViewSet, basename="users")
 router.register(r"teams", TeamViewSet, basename="teams")
 router.register(r"projects", ProjectViewSet, basename="projects")

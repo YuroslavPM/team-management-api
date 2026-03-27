@@ -2,14 +2,14 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.authentication import TokenAuthentication  
 from rest_framework.permissions import IsAuthenticated
+from teams_management.user_profiles.authentication import BearerAuthentication
 from teams_management.user_profiles.models import UserProfile
 from teams_management.user_profiles.serializers import UserProfileReadSerializer, UserProfileWriteSerializer
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
-    authentication_classes= [TokenAuthentication]
+    authentication_classes= [BearerAuthentication]
     permission_classes = [IsAuthenticated]
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT', 'PATCH']:

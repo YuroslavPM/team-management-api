@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'teams_management'
+    'teams_management',
+    'teams_management.chat',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +74,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
+ASGI_APPLICATION = 'core.asgi.application'
+
 
 
 # Database
@@ -122,6 +126,15 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5174",
+    "http://localhost:5173",
     "http://localhost:3000"    
 ]
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG':{
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
